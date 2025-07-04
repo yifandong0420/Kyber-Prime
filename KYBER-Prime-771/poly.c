@@ -379,7 +379,7 @@ void poly_con(uint8_t r[KYBER_POLYCOMPRESSEDBYTES_CV], poly *v, const uint8_t m[
     uint8_t t[8];
     poly_caddq(v);
 
-    for (i = 0; i < KYBER_N / 8; i++) {
+    for (i = 0; i < 256 / 8; i++) {
         for (j = 0; j < 8; j++) {
             t[j] = ((((uint32_t)v->coeffs[8*i+j] << 5) + 1961) / q) & 31;
         }
@@ -391,8 +391,6 @@ void poly_con(uint8_t r[KYBER_POLYCOMPRESSEDBYTES_CV], poly *v, const uint8_t m[
         r[4] = (t[6] >> 2) | (t[7] << 3);
         r += 5;
     }
-    t[0] = ((((uint32_t)v->coeffs[256] << 5) + 1961) / q) & 31;
-    r[0] = t[0];
 
 }
 /*************************************************
@@ -407,7 +405,7 @@ void poly_rec(uint8_t m[KYBER_INDCPA_MSGBYTES], const uint8_t c2[KYBER_POLYCOMPR
     unsigned int i,j;
     uint8_t t[8];
 
-    for (i = 0; i < KYBER_N / 8; i++) {
+    for (i = 0; i < 256 / 8; i++) {
         t[0] = (c2[0] >> 0);
         t[1] = (c2[0] >> 5) | (c2[1] << 3);
         t[2] = (c2[1] >> 2);
@@ -421,8 +419,6 @@ void poly_rec(uint8_t m[KYBER_INDCPA_MSGBYTES], const uint8_t c2[KYBER_POLYCOMPR
         for (j = 0; j < 8; j++)
             c2_coeffs[8 * i + j] = t[j] & 31;
     }
-    t[0] = c2[0];
-    c2_coeffs[256] = t[0] & 31;
 
     for (i = 0; i < 32; i++) {
         m[i] = 0;
