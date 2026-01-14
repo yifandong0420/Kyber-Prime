@@ -27,7 +27,7 @@
 #define KYBER_SECRETVECBYTES	(KYBER_K * KYBER_SECRETBYTES)
 
 /* length for poly v in ct */
-#define KYBER_POLYCOMPRESSEDBYTES_CV 169
+#define KYBER_POLYCOMPRESSEDBYTES_CV 160
 
 /* length for poly u.vec[i] and polyvec u in ct */
 #define KYBER_POLYCOMPRESSEDBYTES_CU 404
